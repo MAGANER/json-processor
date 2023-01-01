@@ -22,8 +22,11 @@ def __open(args):
 
 def __save(args):
     if __check_args(args,1,"save"):
-        with open(args[0],"w") as f:
-            json.dump(__state["data"],f)
+        if __state["data"] != "":
+            with open(args[0],"w") as f:
+                json.dump(__state["data"],f)
+        else:
+            print("can not save json file! it was not opened at all!")
 
 def chunks(lst, n):
     """Yield successive n-sized chunks from lst."""
