@@ -53,7 +53,9 @@ def __showv(args):
     if __check_args(args,1,"showv") and data_exists():
         if key_exists(args[0]):
             print(__state["data"][args[0]])
-            
+def __init(args):
+    if __check_args(args,0,"init"):
+        __state["data"] = {}
 def __change_ssn(args):
     if __check_args(args,1,"change_ssn"):
         val = args[0]
@@ -61,6 +63,19 @@ def __change_ssn(args):
             __state["ssn"] = int(val)
         else:
             print("incorrect argument type or value!")
+
+def __convert_val_to_real_type(val):
+    #TODO:process another data types
+    if val.isdigit():
+        return int(val)
+    else:
+        return val
+def __change_val(args):
+    if __check_args(args,2,"change_val") and data_exists():
+        if key_exists(args[0]):
+            __state["data"][args[0]] = args[1]
+        else:
+            print("{} key doesn't exist!".format(args[0]))
             
 __state = {
     "data":"",  #containts json file
@@ -73,5 +88,7 @@ commands = {
     "showk": lambda args: __showk(args),
     "save": lambda args: __save(args),
     "addk": lambda args: __addk(args),
-    "showv": lambda args:__showv(args)
+    "showv": lambda args:__showv(args),
+    "init": lambda args:__init(args),
+    "change_val":lambda args:__change_val(args)
     }
