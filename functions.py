@@ -20,6 +20,11 @@ def __open(args):
         else:
             print("{} doesn't exist or not regular file!".format(args[0]))
 
+def __save(args):
+    if __check_args(args,1,"save"):
+        with open(args[0],"w") as f:
+            json.dump(__state["data"],f)
+
 def chunks(lst, n):
     """Yield successive n-sized chunks from lst."""
     for i in range(0, len(lst), n):
@@ -32,7 +37,8 @@ def __showk(args):
             line = reduce(lambda a,b:"{} {} ".format(a,b),k)
             print(line)
             input()
-            
+
+
 def __change_ssn(args):
     if __check_args(args,1,"change_ssn"):
         val = args[0]
@@ -49,5 +55,6 @@ commands = {
     "exit": lambda args: exit(0),
     "change_ssn": lambda args: __change_ssn(args),
     "open": lambda args: __open(args),
-    "showk": lambda args: __showk(args)
+    "showk": lambda args: __showk(args),
+    "save": lambda args: __save(args)
     }
