@@ -28,20 +28,32 @@ def __save(args):
         else:
             print("can not save json file! it was not opened at all!")
 
-def chunks(lst, n):
+def __chunks(lst, n):
     """Yield successive n-sized chunks from lst."""
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
+
+data_exists = lambda :__state["data"] != ""
 def __showk(args):
-    if __check_args(args,0,"showk") and __state["data"] != "":
+    if __check_args(args,0,"showk") and data_exists:
         keys = list(__state["data"].keys())
-        keys = chunks(keys,__state["ssn"])
+        keys = __chunks(keys,__state["ssn"])
         for k in keys:
             line = reduce(lambda a,b:"{} {} ".format(a,b),k)
             print(line)
             input()
-
-
+key_exists = lambda n: n in (list(__state["data"].keys()))
+def __addk(args):
+    if __check_args(args,1,"addk") and data_exists():
+        if not key_exists(args[0]):
+            __state["data"][args[0]] = ""
+        else:
+            print("{} key already exists!".format(args[0]))
+def __showv(args):
+    if __check_args(args,1,"showv") and data_exists():
+        if key_exists(args[0]):
+            print(__state["data"][args[0]])
+            
 def __change_ssn(args):
     if __check_args(args,1,"change_ssn"):
         val = args[0]
@@ -59,5 +71,7 @@ commands = {
     "change_ssn": lambda args: __change_ssn(args),
     "open": lambda args: __open(args),
     "showk": lambda args: __showk(args),
-    "save": lambda args: __save(args)
+    "save": lambda args: __save(args),
+    "addk": lambda args: __addk(args),
+    "showv": lambda args:__showv(args)
     }
