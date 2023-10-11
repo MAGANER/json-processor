@@ -78,7 +78,7 @@ def __change_val(args):
             print("{} key doesn't exist!".format(args[0]))
             
 __state = {
-    "data":"",  #containts json file
+    "data":"",  #contains json file
     "ssn":10 #showing string number represents how many strings will be printed with show command
 }
 commands = {
