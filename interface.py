@@ -9,9 +9,9 @@ def __parse_command(com):
 def run():
     while True:
         command = input(">")
-        parsed = __parse_command(command)
-        if __exists(functions.commands,parsed[0]):
-            functions.commands[parsed[0]](parsed[1])
+        command_head ,*args = __parse_command(command)
+        if __exists(functions.commands,command_head):
+            functions.commands[command_head](args)
         else:
             print("command {} doesn't exist!".format(parsed[0]))
         
