@@ -16,3 +16,11 @@ console python utility to edit json files.<br>
 `change_val key val`  or `cv` - change value of key<br>
 
 </pre>
+
+# Modes
+1) Interactive
+  run json_processor.py and use commands above.
+
+2) CLI
+  pass the sequence of commands and they will be executed one by one. Every command must be finished with ;
+  Example: json_processor.py o file.json; sk; addk new_key; cv new_key some_val;
