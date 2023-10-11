@@ -9,7 +9,8 @@ def __check_args(args,n,com_name):
         return False
     return True
 
-def __open(args):
+def _open(args):
+    '''open - takes 1 argument and tries to open json file.'''
     if __check_args(args,1,"open"):
         if os.path.isfile(args[0]):
             try:
@@ -20,7 +21,8 @@ def __open(args):
         else:
             print("{} doesn't exist or not regular file!".format(args[0]))
 
-def __save(args):
+def _save(args):
+    '''save - write down created/changed json file'''
     if __check_args(args,1,"save"):
         if __state["data"] != "":
             with open(args[0],"w") as f:
@@ -34,7 +36,8 @@ def __chunks(lst, n):
         yield lst[i:i + n]
 
 data_exists = lambda :__state["data"] != ""
-def __showk(args):
+def _showk(args):
+    '''showk - shows keys with 10 elements on 1 line by default'''
     if __check_args(args,0,"showk") and data_exists:
         keys = list(__state["data"].keys())
         keys = __chunks(keys,__state["ssn"])
@@ -43,20 +46,24 @@ def __showk(args):
             print(line)
             input()
 key_exists = lambda n: n in (list(__state["data"].keys()))
-def __addk(args):
+def _addk(args):
+    '''addk - adds new key'''
     if __check_args(args,1,"addk") and data_exists():
         if not key_exists(args[0]):
             __state["data"][args[0]] = ""
         else:
             print("{} key already exists!".format(args[0]))
-def __showv(args):
+def _showv(args):
+    '''showv -  shows value of the key'''
     if __check_args(args,1,"showv") and data_exists():
         if key_exists(args[0]):
             print(__state["data"][args[0]])
-def __init(args):
+def _init(args):
+    '''init - creates empty json file, replacing opened/created file'''
     if __check_args(args,0,"init"):
         __state["data"] = {}
-def __change_ssn(args):
+def _change_ssn(args):
+    '''change_ssn - change the number of printed keys on 1 line'''
     if __check_args(args,1,"change_ssn"):
         val = args[0]
         if val.isnumeric():
@@ -70,25 +77,36 @@ def __convert_val_to_real_type(val):
         return int(val)
     else:
         return val
-def __change_val(args):
+def _change_val(args):
+    '''change_val - change value of key'''
     if __check_args(args,2,"change_val") and data_exists():
         if key_exists(args[0]):
             __state["data"][args[0]] = args[1]
         else:
             print("{} key doesn't exist!".format(args[0]))
+
+def _help(args):
+    '''help - print help message'''
+    for key in commands.keys():
+        if key != "exit":
+            val = commands[key]
+            print(val.__doc__)
+
+    print("exit - quit the program")
             
 __state = {
     "data":"",  #contains json file
     "ssn":10 #showing string number represents how many strings will be printed with show command
 }
 commands = {
-    "exit": lambda args: exit(0),
-    "change_ssn": lambda args: __change_ssn(args),
-    "open": lambda args: __open(args),
-    "showk": lambda args: __showk(args),
-    "save": lambda args: __save(args),
-    "addk": lambda args: __addk(args),
-    "showv": lambda args:__showv(args),
-    "init": lambda args:__init(args),
-    "change_val":lambda args:__change_val(args)
+    "exit":       lambda args: exit(0),
+    "help":       _help,
+    "change_ssn": _change_ssn,
+    "open":       _open,
+    "showk":      _showk,
+    "save":       _save,
+    "addk":       _addk,
+    "showv":      _showv,
+    "init":       _init,
+    "change_val": _change_val
     }
