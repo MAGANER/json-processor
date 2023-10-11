@@ -1,7 +1,7 @@
 import json
 import os.path
 from functools import reduce
-
+from sys import exit
 
 def __check_args(args,n,com_name):
     if len(args) != n:
