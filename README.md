@@ -4,7 +4,7 @@ console python utility to edit json files.<br>
 
 # Commands
 <pre>
-  
+Common form: `command [argument1]  [argumentn]  
 `exit`         or `e`         - exit program, back to terminal<br>
 `open file`    or `o`         - opens json files, throws error if it's not json or it doesn't exist<br>
 `showk`        or `sk`        - shows keys with 10 elements on 1 line by default<br>
