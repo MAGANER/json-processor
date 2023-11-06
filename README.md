@@ -23,4 +23,4 @@ console python utility to edit json files.<br>
 
 2) CLI
   pass the sequence of commands and they will be executed one by one. Every command must be finished with ;
-  Example: json_processor.py o file.json; sk; addk new_key; cv new_key some_val;
+  Example: ```json_processor.py o file.json; sk; addk new_key; cv new_key some_val;```
