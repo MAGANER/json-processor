@@ -50,7 +50,7 @@ class Functions:
         '''showk - shows keys with 10 elements on 1 line by default'''
         if __class__._check_args(args,0,"showk") and __class__.data != "":
             keys = list(__class__.data.keys())
-            keys = __chunks(keys,__class__.ssn)
+            keys = __class__.__chunks(keys,__class__.ssn)
             for k in keys:
                 line = reduce(lambda a,b:"{} {} ".format(a,b),k)
                 print(line)
