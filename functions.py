@@ -2,7 +2,6 @@ import json
 import os.path
 from functools import reduce
 from sys import exit
-
 class Functions:
     data = ""
     ssn  = 10
@@ -47,7 +46,7 @@ class Functions:
 
     @staticmethod
     def _showk(args):
-        '''showk - shows keys with 10 elements on 1 line by default'''
+        '''shows keys with 10 elements on 1 line by default'''
         if __class__._check_args(args,0,"showk") and __class__.data != "":
             keys = list(__class__.data.keys())
             keys = __class__.__chunks(keys,__class__.ssn)
@@ -100,15 +99,31 @@ class Functions:
             else:
                 print("{} key doesn't exist!".format(args[0]))
 
+
+    def __align_right(xs):
+        sizes = list(map(lambda n: len(n.split("-")[0]),xs))
+        max_len = max(sizes)
+        
+        for el in xs:
+            left, right = el.split("-")
+            diff = max_len - len(left)
+            yield left + " "*diff + "-" +right
+            
+            
+            
+            
     def _help(args):
         '''print help message'''
+        output = []
         for key in commands.keys():
             fst, snd = key
             if fst != "exit":
                 val = commands[key]
-                print("{}|{} -".format(fst,snd)+ val.__doc__)
+                output.append("{}|{} -".format(fst,snd)+ val.__doc__)
+        output.append("exit|e -quit the program")
 
-        print("exit, e - quit the program")
+        for o in __class__.__align_right(output):
+            print(o)
        
 commands = {
     ("exit","e"):        lambda args: exit(0),
